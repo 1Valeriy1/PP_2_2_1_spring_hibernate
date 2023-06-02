@@ -31,11 +31,10 @@ public class UserDaoImp implements UserDao {
    @Override
    @SuppressWarnings("unchecked")
    public User UserByCar(String model, int series) {
-      TypedQuery<Car> query=sessionFactory.getCurrentSession().createQuery("from Car car left outer join fetch " +
-              "car.user where car.model = :m and car.series = :s");
-    query.setParameter("m", model);
+      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User user where user.car.model = :m and user.car.series = :s");
+      query.setParameter("m", model);
       query.setParameter("s", series);
-      return query.getSingleResult().getUser();
+      return query.getSingleResult();
    }
 
 }
